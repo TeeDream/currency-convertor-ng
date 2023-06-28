@@ -1,0 +1,8 @@
+<header>
+  <span *ngIf="USD | async as usd">
+    USD to UAH: {{ usd.rates.UAH | json | number : "1.2-2" }}
+  </span>
+  <span *ngIf="EUR | async as eur">
+    EUR to UAH: {{ eur.rates.UAH | json | number : "1.2-2" }}
+  </span>
+</header>
