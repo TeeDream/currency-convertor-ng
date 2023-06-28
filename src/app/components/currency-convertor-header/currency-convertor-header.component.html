@@ -1,4 +1,8 @@
 <header>
+  <div>
+    <span>{{ title | titlecase }} App</span>
+  </div>
+
   <span *ngIf="USD | async as usd">
     USD to UAH: {{ usd.rates.UAH | json | number : "1.2-2" }}
   </span>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Observable, retry, take } from 'rxjs';
 import { CurrencyApiService } from 'src/app/services/currency-api.service';
 import { CurrencyAPIAnswer } from 'src/app/types/currency';
@@ -11,6 +11,8 @@ import { CurrencyAPIAnswer } from 'src/app/types/currency';
 export class CurrencyConvertorHeaderComponent implements OnInit {
   USD!: Observable<CurrencyAPIAnswer>;
   EUR!: Observable<CurrencyAPIAnswer>;
+
+  @Input() title: string | undefined;
 
   constructor(private currencyAPIAnswer: CurrencyApiService) {}
 

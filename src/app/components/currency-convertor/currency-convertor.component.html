@@ -1,0 +1,38 @@
+<div class="convertor">
+  <h2>Currency Convertor</h2>
+  <div class="selectors">
+    <div>
+      <select id="from" (change)="changeFromSelect()" [(ngModel)]="selectFrom">
+        <option [value]="currency" *ngFor="let currency of countries">
+          {{ currency }}
+        </option>
+      </select>
+      <input
+        type="text"
+        inputmode="numeric"
+        id="fromInput"
+        (keydown)="validateKeyDown($event)"
+        [(ngModel)]="inputFrom"
+        (ngModelChange)="inputChangeFrom($event)"
+      />
+    </div>
+
+    <p>To</p>
+
+    <div>
+      <select id="to" (change)="changeToSelect()" [(ngModel)]="selectTo">
+        <option [value]="currency" *ngFor="let currency of countries">
+          {{ currency }}
+        </option>
+      </select>
+      <input
+        type="text"
+        inputmode="numeric"
+        id="toIpnut"
+        (keydown)="validateKeyDown($event)"
+        [(ngModel)]="inputTo"
+        (ngModelChange)="inputChangeTo($event)"
+      />
+    </div>
+  </div>
+</div>
