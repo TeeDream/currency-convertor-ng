@@ -1,7 +1,11 @@
-<app-currency-convertor-header [title]="title"></app-currency-convertor-header>
+<div class="main-wrapper">
+  <app-currency-convertor-header
+    [title]="title"
+  ></app-currency-convertor-header>
 
-<main class="content">
-  <app-currency-convertor></app-currency-convertor>
-</main>
+  <main class="main">
+    <app-currency-convertor></app-currency-convertor>
+  </main>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

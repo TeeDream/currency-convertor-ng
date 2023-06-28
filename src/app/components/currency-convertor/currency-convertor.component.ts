@@ -7,6 +7,7 @@ import {
   APICountriesKeys,
   CurrencyAPIAnswer,
 } from '../../types/currency';
+import { ValidatorService } from 'src/app/services/validator.service';
 
 @Component({
   selector: 'app-currency-convertor',
@@ -19,11 +20,21 @@ export class CurrencyConvertorComponent implements OnInit {
   selectTo: APICountries = 'UAH';
   inputFrom: string = '1';
   inputTo: string = '';
-  apiAnswer!: CurrencyAPIAnswer;
+  apiAnswer!: CurrencyAPIAnswer | null;
 
-  constructor(private currencyAPI: CurrencyApiService) {}
+  constructor(
+    private currencyAPI: CurrencyApiService,
+    private validator: ValidatorService
+  ) {}
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  reverse(e?: KeyboardEvent): void {
+    if (e && !(e.code === 'Enter' || e.code === 'Space')) return;
+
+    [this.selectTo, this.selectFrom] = [this.selectFrom, this.selectTo];
     this.getData();
   }
 
@@ -39,6 +50,12 @@ export class CurrencyConvertorComponent implements OnInit {
       });
   }
 
+  getRate(): string {
+    if (!this.apiAnswer) return '';
+
+    return String(this.apiAnswer.rates[this.selectTo as APICountriesKeys]);
+  }
+
   changeFromSelect() {
     this.getData();
   }
@@ -48,29 +65,7 @@ export class CurrencyConvertorComponent implements OnInit {
   }
 
   validateKeyDown(e: KeyboardEvent): boolean {
-    const isDigit = /Digit/.test(e.code);
-    const isTab = /Tab/.test(e.code);
-    const isCtrl = e.ctrlKey;
-    const isEscape = /Escape/.test(e.code);
-    const isBackspace = /Backspace/.test(e.code);
-    const isArrow = /Arrow/.test(e.code);
-    const isPeriod = /Period/.test(e.code);
-    const isPeriodOne = /\./.test((e.target as HTMLInputElement).value);
-
-    if (
-      isDigit ||
-      isTab ||
-      isCtrl ||
-      isEscape ||
-      isBackspace ||
-      isArrow ||
-      (isPeriod && !isPeriodOne)
-    ) {
-      return true;
-    }
-
-    e.preventDefault();
-    return false;
+    return this.validator.validateKeyDown(e);
   }
 
   convertCurrency(
@@ -79,6 +74,8 @@ export class CurrencyConvertorComponent implements OnInit {
     amount: string,
     reverse?: true
   ): string {
+    if (!this.apiAnswer) return '';
+
     const from = this.apiAnswer.rates[countryFrom as APICountriesKeys];
     const to = this.apiAnswer.rates[countryTo as APICountriesKeys];
 

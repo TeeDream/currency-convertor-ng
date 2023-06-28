@@ -1,42 +1,71 @@
 .convertor {
-  max-width: 400px;
+  max-width: 600px;
+  min-width: 250px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f2f2f2;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+  &__title {
+    margin-top: 0;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  &__selectors {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  &__selectors > .selector-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__selectors .select {
+    padding: 6px;
+    font-size: 16px;
+  }
+
+  &__selectors .currency-input {
+    padding: 6px;
+    width: 100%;
+    font-size: 16px;
+  }
+
+  &__selectors .swap-currency {
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 16px;
+  }
+
+  .swap-currency {
+    width: 24px;
+    height: 24px;
+  }
+
+  .currency-rate {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+  }
 }
 
-.convertor h2 {
-  margin-top: 0;
-  font-size: 24px;
-  text-align: center;
-}
+@media screen and (max-width: 678px) {
+  .convertor {
+    &__selectors {
+      flex-direction: column;
+      gap: 10px;
+      align-items: normal;
+    }
 
-.convertor .selectors {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.convertor .selectors > div {
-  display: flex;
-  align-items: center;
-}
-
-.convertor .selectors select {
-  padding: 6px;
-  font-size: 16px;
-}
-
-.convertor .selectors input {
-  padding: 6px;
-  width: 80px;
-  font-size: 16px;
-}
-
-.convertor .selectors p {
-  margin: 0 10px;
-  font-size: 16px;
+    .swap-currency {
+      align-self: center;
+    }
+  }
 }

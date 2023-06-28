@@ -1,38 +1,70 @@
 <div class="convertor">
-  <h2>Currency Convertor</h2>
-  <div class="selectors">
-    <div>
-      <select id="from" (change)="changeFromSelect()" [(ngModel)]="selectFrom">
+  <h2 class="convertor__title">Currency Convertor</h2>
+  <div class="convertor__selectors">
+    <div class="selector-container">
+      <select
+        class="select"
+        (change)="changeFromSelect()"
+        [(ngModel)]="selectFrom"
+      >
         <option [value]="currency" *ngFor="let currency of countries">
           {{ currency }}
         </option>
       </select>
       <input
+        class="currency-input"
         type="text"
         inputmode="numeric"
-        id="fromInput"
         (keydown)="validateKeyDown($event)"
         [(ngModel)]="inputFrom"
         (ngModelChange)="inputChangeFrom($event)"
       />
     </div>
 
-    <p>To</p>
+    <span
+      tabindex="0"
+      (keydown)="reverse($event)"
+      class="swap-currency"
+      (click)="reverse()"
+    >
+      <svg
+        width="24px"
+        height="24px"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-labelledby="swapHorizontalIconTitle"
+        stroke="#000000"
+        stroke-width="1"
+        stroke-linecap="square"
+        stroke-linejoin="miter"
+        fill="none"
+        color="#000000"
+      >
+        <title id="swapHorizontalIconTitle">Swap items (horizontally)</title>
+        <path d="M16 4L19 7L16 10" />
+        <path d="M4 7L18 7" />
+        <path d="M7 20L4 17L7 14" />
+        <path d="M19 17L5 17" />
+      </svg>
+    </span>
 
-    <div>
-      <select id="to" (change)="changeToSelect()" [(ngModel)]="selectTo">
+    <div class="selector-container">
+      <select class="select" (change)="changeToSelect()" [(ngModel)]="selectTo">
         <option [value]="currency" *ngFor="let currency of countries">
           {{ currency }}
         </option>
       </select>
       <input
+        class="currency-input"
         type="text"
         inputmode="numeric"
-        id="toIpnut"
         (keydown)="validateKeyDown($event)"
         [(ngModel)]="inputTo"
         (ngModelChange)="inputChangeTo($event)"
       />
     </div>
   </div>
+  <span class="currency-rate">
+    1 {{ selectFrom }} is {{ getRate() | number : "1.0-3" }} {{ selectTo }}
+  </span>
 </div>
